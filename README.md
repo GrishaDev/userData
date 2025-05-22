@@ -14,6 +14,8 @@ run `npm run start:dev`
 
 
 ## Docker install
+configure .env
+
 run `docker-compose up -d`
 
 ## Usage
