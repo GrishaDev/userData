@@ -15,8 +15,25 @@ export class UserDataService {
   }
 
   async insertData(payload: UserDataDTO): Promise<UserDataDTO> {
-    // extra checks if needed
+  
+    // Can be in seperate module with more development time
+    const agifyHost = this.configService.get('agifyHost');
+    const { firstName } = payload;
+    let age = null;
+
+    try {
+      this.logger.log('Calling agify API');
+      const res = await fetch(`${agifyHost}?name=${firstName}`, { method: 'GET' });
+      if (res.ok) {
+        this.logger.log('Agify api request success');
+        const data = await res.json();
+        age = data?.age;
+      }
+    } catch (err) {
+      this.logger.warn(`Agify api request has failed, will continue anyway`);
+    }
+
     this.logger.log('Inserting new entity');
-    return this.userDataRepository.insertData(payload);
+    return this.userDataRepository.insertData(payload, age);
   }
 }

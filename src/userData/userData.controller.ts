@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, UseGuards, HttpCode, Body } from '@nestjs/common';
+import { Controller, Get, Post, HttpCode, Body } from '@nestjs/common';
 import { UserDataService } from './userData.service';
 import { UserData } from './userData.schema';
 import { UserDataDTO } from './userData.DTO';
@@ -9,12 +9,7 @@ export class UserDataController {
 
   @Get()
   async getAll(): Promise<UserData[] | []>  {
-    try {
-      return this.userDataService.getAll();
-    } catch(err) {
-      console.log(err);
-      throw new Error('error');
-    }
+    return this.userDataService.getAll();
   }
 
   @Post()

@@ -18,10 +18,10 @@ export class UserDataRepositoryMock {
     return this.entities;
   }
 
-  async insertData(dataDto: UserDataDTO): Promise<UserDataDTO> {
+  async insertData(dataDto: UserDataDTO, age: number | null): Promise<UserDataDTO> {
     this.logger.log(`[Mock] creating new userData entity`);
     const randomId = crypto.randomBytes(16).toString('hex');
-    const newEntity = {...dataDto, id: randomId};
+    const newEntity = {...dataDto, id: randomId, age};
     this.entities.push(newEntity);
     return dataDto;
   }

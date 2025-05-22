@@ -20,9 +20,9 @@ export class UserDataRepository {
     return data;
   }
 
-  async insertData(dataDto: UserDataDTO): Promise<UserDataDTO> {
+  async insertData(dataDto: UserDataDTO, age: number | null): Promise<UserDataDTO> {
       this.logger.log(`creating new userData entity`);
-      const user = new this.userDataModel(dataDto);
+      const user = new this.userDataModel({...dataDto, age});
       await user.save();
       return dataDto;
   }
